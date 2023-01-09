@@ -292,13 +292,21 @@ public class PostgreSqlDatabaseDialect extends GenericDatabaseDialect {
     if (field.schemaName() != null) {
       switch (field.schemaName()) {
         case Decimal.LOGICAL_NAME:
-          return "DECIMAL";
+          return "double precision";
         case Date.LOGICAL_NAME:
           return "DATE";
         case Time.LOGICAL_NAME:
           return "TIME";
         case Timestamp.LOGICAL_NAME:
           return "TIMESTAMP";
+        case "io.debezium.data.Uuid":
+          return "uuid";
+        case "io.debezium.time.ZonedTimestamp":
+          return "timestamp with time zone";
+        case "io.debezium.data.Json":
+          return "jsonb";
+        case "io.debezium.time.Date":
+          return "date";
         default:
           // fall through to normal types
       }
